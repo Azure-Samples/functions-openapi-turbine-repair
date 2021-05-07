@@ -21,16 +21,16 @@ namespace TurbineRepair
         const double turbineCost = 100;
 
         [FunctionName("TurbineRepair")]
-        [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
-        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        [OpenApiParameter(name: "hours", In = ParameterLocation.Query, Required = true, Type = typeof(Int32),
+        [OpenApiOperation(operationId: "Run")]
+        [OpenApiParameter(name: "hours", In = ParameterLocation.Query, Type = typeof(Int32),
             Description = "Number of hours since turbine last serviced.")]
-        [OpenApiParameter(name: "capacity", In = ParameterLocation.Query, Required = true, Type = typeof(Int32),
+        [OpenApiParameter(name: "capacity", In = ParameterLocation.Query, Type = typeof(Int32),
             Description = "Kilowatt capacity of turbine.")]
+        [OpenApiRequestBody("application/json", typeof(RequestBodyModel), Description = "JSON request body containing { hours, capacity}")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(string),
             Description = "The OK response message containing a JSON result.")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, new string[] { "post", "get" }, Route = null)] HttpRequest req,
             ILogger log)
         {
             // Get query strings if they exist
@@ -72,6 +72,11 @@ namespace TurbineRepair
                 costToFix = "$" + costToFix
             });
         }
+    }
+    public class RequestBodyModel
+    {
+        public int Hours { get; set; }
+        public int Capacity { get; set; } 
     }
 }
 
