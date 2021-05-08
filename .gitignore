@@ -348,3 +348,5 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/TurbineRepair/Properties/ServiceDependencies/TurbineRepair20210506232328 - Zip Deploy
+/TurbineRepair/Properties/serviceDependencies.TurbineRepair20210506232328 - Zip Deploy.json

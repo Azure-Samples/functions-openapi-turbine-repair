@@ -26,11 +26,12 @@ namespace TurbineRepair
             Description = "Number of hours since turbine last serviced.")]
         [OpenApiParameter(name: "capacity", In = ParameterLocation.Query, Type = typeof(Int32),
             Description = "Kilowatt capacity of turbine.")]
-        [OpenApiRequestBody("application/json", typeof(RequestBodyModel), Description = "JSON request body containing { hours, capacity}")]
+        [OpenApiRequestBody("application/json", typeof(RequestBodyModel), 
+            Description = "JSON request body containing { hours, capacity}")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(string),
             Description = "The OK response message containing a JSON result.")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, new string[] { "post", "get" }, Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             // Get query strings if they exist
