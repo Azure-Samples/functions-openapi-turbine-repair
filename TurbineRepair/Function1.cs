@@ -22,6 +22,7 @@ namespace TurbineRepair
 
         [FunctionName("TurbineRepair")]
         [OpenApiOperation(operationId: "Run")]
+        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         [OpenApiParameter(name: "hours", In = ParameterLocation.Query, Type = typeof(Int32),
             Description = "Number of hours since turbine last serviced.")]
         [OpenApiParameter(name: "capacity", In = ParameterLocation.Query, Type = typeof(Int32),
@@ -31,7 +32,7 @@ namespace TurbineRepair
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(string),
             Description = "The OK response message containing a JSON result.")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             // Get query strings if they exist
