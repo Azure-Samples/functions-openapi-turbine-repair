@@ -154,6 +154,7 @@ publish/
 # in these scripts will be unencrypted
 PublishScripts/
 ServiceDependencies/
+**/serviceDependencies.*
 
 # NuGet Packages
 *.nupkg
