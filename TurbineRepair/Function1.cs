@@ -31,11 +31,9 @@ namespace TurbineRepair
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
             ILogger log)
         {
-            // Get request body
+            // Get request body data.
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
-
-            // Use request body if a query was not sent
             int? capacity = data?.capacity;
             int? hours = data?.hours;
 
