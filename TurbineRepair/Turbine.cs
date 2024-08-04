@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 
 namespace TurbineRepair
 {
-    public static class Turbines
+    public static class Turbine
     {
         const double revenuePerkW = 0.12;
         const double technicianCost = 250;
